@@ -2,12 +2,19 @@
 
 #include <stdexcept>
 #include <cmath>
+#include <cstring>
+#include <utility>
 
 class Range {
 public:
     Range(int); // end
     Range(int, int); // start, end
     Range(int, int, int); // start, end, step
+
+    Range(Range const&);
+    Range(Range&&);
+    Range& operator=(Range const&);
+    Range& operator=(Range&&);
     
     class Iterator {
     public:

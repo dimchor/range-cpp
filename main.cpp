@@ -12,7 +12,7 @@ int main() {
     printRange(Range(-16, 7, 3));
     printRange(Range(7, -4, -2));
 
-    std::cout << range[5] << '\n'; // no bounds checking
+    // std::cout << range[5] << '\n'; // no bounds checking
     try {
         std::cout << range.at(5) << '\n'; // throws std::out_of_range!
     } catch(std::exception const& e) {

@@ -29,6 +29,41 @@ Range::Range(int t_start, int t_end) : Range(t_start, t_end, 1) {}
 
 Range::Range(int t_end) : Range(0, t_end, 1) {}
 
+Range::Range(Range const& t_other) {
+    *this = t_other;
+}
+
+Range::Range(Range&& t_other) {
+    *this = std::move(t_other);
+}
+
+Range& Range::operator=(Range const& t_other) {
+    if (m_array) {
+        delete [] m_array;
+    }
+
+    m_size = t_other.m_size;
+    m_array = new int [m_size];
+    std::memcpy(m_array, t_other.m_array, sizeof(int) * m_size);
+
+    return *this;
+}
+
+Range& Range::operator=(Range&& t_other) {
+    if (&t_other == this) { // silly goose!
+        return *this;
+    }
+
+    if (m_array) {
+        delete [] m_array;
+    }
+
+    m_array = std::exchange(t_other.m_array, nullptr);
+    m_size = std::exchange(t_other.m_size, 0);
+
+    return *this;
+}
+
 Range::~Range() {
     delete [] m_array;
 }
