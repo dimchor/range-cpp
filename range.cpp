@@ -38,6 +38,10 @@ Range::Range(Range&& t_other) {
 }
 
 Range& Range::operator=(Range const& t_other) {
+    if (&t_other == this) { // silly goose!
+        return *this;
+    }
+    
     if (m_array) {
         delete [] m_array;
     }
